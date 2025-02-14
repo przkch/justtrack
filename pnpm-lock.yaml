@@ -14,6 +14,9 @@ importers:
       drizzle-orm:
         specifier: ^0.38.4
         version: 0.38.4(postgres@3.4.5)
+      m3-svelte:
+        specifier: ^3.4.7
+        version: 3.4.7
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
@@ -495,6 +498,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
     engines: {node: '>=6.0.0'}
@@ -512,6 +518,12 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@ktibow/iconset-material-symbols@0.0.1738223466':
+    resolution: {integrity: sha512-248Qruj0ceiTVIL3Ny2LO08DsKC2ezT+3Ag1qGKhTct1sXsM/clvLDBn0pQgCOPDmzO0/P2Ad+uPFUX6ozxJOQ==}
+
+  '@material/material-color-utilities@0.3.0':
+    resolution: {integrity: sha512-ztmtTd6xwnuh2/xu+Vb01btgV8SQWYCaK56CkRK8gEkWe5TuDyBcYJ0wgkMRn+2VcE9KUmhvkz+N9GHrqw/C0g==}
 
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
@@ -1010,6 +1022,9 @@ packages:
   locate-character@3.0.0:
     resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
 
+  m3-svelte@3.4.7:
+    resolution: {integrity: sha512-R8Xwrd+FYs/fnaMWsCbAqHrsptWhsPmsC9fpcnKrdPzb1F/2kbCRe4XYdw5uQPTbm1eZYRQ929Z/Gpst13oSeQ==}
+
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
@@ -1448,6 +1463,8 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
+  '@iconify/types@2.0.0': {}
+
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
       '@jridgewell/set-array': 1.2.1
@@ -1464,6 +1481,12 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@ktibow/iconset-material-symbols@0.0.1738223466':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@material/material-color-utilities@0.3.0': {}
 
   '@polka/url@1.0.0-next.28': {}
 
@@ -1844,6 +1867,13 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.29.1
 
   locate-character@3.0.0: {}
+
+  m3-svelte@3.4.7:
+    dependencies:
+      '@iconify/types': 2.0.0
+      '@ktibow/iconset-material-symbols': 0.0.1738223466
+      '@material/material-color-utilities': 0.3.0
+      svelte: 5.20.0
 
   magic-string@0.30.17:
     dependencies:
