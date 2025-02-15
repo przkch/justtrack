@@ -1,10 +1,26 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { StyleFromScheme } from 'm3-svelte';
+	import { page } from '$app/state';
+	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { Button, StyleFromScheme } from 'm3-svelte';
 
 	let { children } = $props();
 </script>
+
+<nav class="flex flex-row items-center justify-between gap-2 p-4">
+	<h3>JustTrack</h3>
+	<div class="flex flex-row items-center gap-2">
+		{#if page.data.session}
+			{#if page.data.session.user?.image}
+				<img src={page.data.session.user.image} class="w-8 rounded-full" alt="User Avatar" />
+			{/if}
+			<Button type="filled" on:click={() => signOut()}>Sign out</Button>
+		{:else}
+			<Button type="filled" on:click={() => signIn('github')}>Sign in</Button>
+		{/if}
+	</div>
+</nav>
 
 <StyleFromScheme
 	lightScheme={{
