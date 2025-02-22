@@ -103,6 +103,6 @@
 	}}
 />
 
-<main class="p-4">
+<main class="mx-auto max-w-[900px] p-4">
 	{@render children()}
 </main>

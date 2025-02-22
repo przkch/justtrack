@@ -3,12 +3,14 @@ import { db } from '$lib/server/db';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
+	let mediaLimit = 6;
+
 	const recentMovies = await db.query.imdbMovieT.findMany({
-		limit: 6,
+		limit: mediaLimit,
 		orderBy: (movie, { desc }) => [desc(movie.createdAt)]
 	});
 	const recentTv = await db.query.imdbTvT.findMany({
-		limit: 6,
+		limit: mediaLimit,
 		orderBy: (tv, { desc }) => [desc(tv.createdAt)]
 	});
 
