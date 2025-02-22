@@ -6,5 +6,6 @@ import GitHub from '@auth/sveltekit/providers/github';
 
 export const { handle } = SvelteKitAuth({
 	adapter: DrizzleAdapter(db),
-	providers: [GitHub]
+	providers: [GitHub],
+	trustHost: true
 });
