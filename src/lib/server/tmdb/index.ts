@@ -74,8 +74,6 @@ export class TMDB {
 			}
 		});
 
-		// console.debug('[tmdb] response: %o', res);
-
 		return res;
 	}
 
