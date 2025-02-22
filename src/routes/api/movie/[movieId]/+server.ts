@@ -9,7 +9,9 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ params }) => {
 	const movieId = Number(params.movieId);
 
-	const [dbResult] = await db.select().from(imdbMovieT).where(eq(imdbMovieT.movieId, movieId));
+	const dbResult = await db.query.imdbMovieT.findFirst({
+		where: (movie, { eq }) => eq(movie.movieId, movieId)
+	});
 
 	if (dbResult) return json(dbResult);
 
@@ -43,5 +45,9 @@ export const GET: RequestHandler = async ({ params }) => {
 		originCountry: movie.origin_country
 	});
 
-	return json([await db.select().from(imdbMovieT).where(eq(imdbMovieT.movieId, movieId))]);
+	return json(
+		await db.query.imdbMovieT.findFirst({
+			where: (movie, { eq }) => eq(movie.movieId, movieId)
+		})
+	);
 };
