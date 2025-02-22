@@ -1,12 +1,35 @@
-import { boolean, timestamp, pgTable, text, primaryKey, integer } from 'drizzle-orm/pg-core';
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
+import {
+	boolean,
+	timestamp,
+	pgTable,
+	text,
+	primaryKey,
+	integer,
+	date,
+	json,
+	customType
+} from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from '@auth/core/adapters';
 
-const connectionString = 'postgres://postgres:postgres@localhost:5432/drizzle';
-const pool = postgres(connectionString, { max: 1 });
+type NumericConfig = {
+	precision?: number;
+	scale?: number;
+};
 
-export const db = drizzle(pool);
+export const numericCasted = customType<{
+	data: number;
+	driverData: string;
+	config: NumericConfig;
+}>({
+	dataType: (config) => {
+		if (config?.precision && config?.scale) {
+			return `numeric(${config.precision}, ${config.scale})`;
+		}
+		return 'numeric';
+	},
+	fromDriver: (value: string) => Number.parseFloat(value), // note: precision loss for very large/small digits so area to refactor if needed
+	toDriver: (value: number) => value.toString()
+});
 
 export const users = pgTable('user', {
 	id: text('id')
@@ -90,3 +113,20 @@ export const authenticators = pgTable(
 		}
 	]
 );
+
+export const imdbMovieT = pgTable('imdb_movie_t', {
+	movieId: integer('movie_id').primaryKey(),
+	ImdbId: text('imdb_id'),
+	title: text('title'),
+	originalTitle: text('original_title'),
+	overview: text('overview'),
+	posterPath: text('poster_path'),
+	adult: boolean('adult'),
+	originalLanguage: text('original_language'),
+	genreIds: json('genre_ids').$type<number[]>(),
+	popularity: numericCasted('popularity'),
+	releaseDate: date('release_date'),
+	voteAverage: numericCasted('vote_average'),
+	voteCount: integer('vote_count'),
+	originCountry: json('origin_country').$type<string[]>()
+});
