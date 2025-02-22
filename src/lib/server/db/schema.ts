@@ -130,34 +130,46 @@ export const authenticators = pgTable(
 	]
 );
 
+const commonMediaColumns = {
+	adult: boolean('adult'),
+	backdropPath: text('backdrop_path'),
+	genres: json('genres').$type<Genre[]>(),
+	homepage: text('homepage'),
+	originCountry: json('origin_country').$type<string[]>(),
+	originalLanguage: text('original_language'),
+	overview: text('overview'),
+	popularity: numericCasted('popularity'),
+	posterPath: text('poster_path'),
+	productionCompanies: json('production_companies').$type<ProductionCompany[]>(),
+	productionCountries: json('production_countries').$type<ProductionCountry[]>(),
+	spokenLanguages: json('spoken_languages').$type<SpokenLanguage[]>(),
+	status: text('status'),
+	tagline: text('tagline'),
+	voteAverage: numericCasted('vote_average'),
+	voteCount: integer('vote_count')
+};
+
 export const imdbMovieT = pgTable('imdb_movie_t', {
 	...timestamps,
+	...commonMediaColumns,
+	belongsToCollection: boolean('belongs_to_collection'),
+	budget: integer('budget'),
+	imdbId: text('imdb_id'),
 	movieId: integer('movie_id').primaryKey(),
-	ImdbId: text('imdb_id'),
-	title: text('title'),
 	originalTitle: text('original_title'),
-	overview: text('overview'),
-	posterPath: text('poster_path'),
-	adult: boolean('adult'),
-	originalLanguage: text('original_language'),
-	genreIds: json('genre_ids').$type<number[]>(),
-	popularity: numericCasted('popularity'),
 	releaseDate: date('release_date'),
-	voteAverage: numericCasted('vote_average'),
-	voteCount: integer('vote_count'),
-	originCountry: json('origin_country').$type<string[]>()
+	revenue: integer('revenue'),
+	runtime: integer('runtime'),
+	title: text('title'),
+	video: boolean('video')
 });
 
 export const imdbTvT = pgTable('imdb_tv_t', {
 	...timestamps,
-	adult: boolean('adult'),
-	backdropPath: text('backdrop_path'),
+	...commonMediaColumns,
 	createdBy: json('created_by').$type<CreatedBy[]>(),
 	episodeRunTime: json('episode_run_time').$type<number[]>(),
 	firstAirDate: date('first_air_date'),
-	genres: json('genres').$type<Genre[]>(),
-	homepage: text('homepage'),
-	tvId: integer('tv_id').primaryKey(),
 	inProduction: boolean('is_production'),
 	languages: json('languages').$type<string[]>(),
 	lastAirDate: date('last_air_date'),
@@ -167,19 +179,8 @@ export const imdbTvT = pgTable('imdb_tv_t', {
 	networks: json('networks').$type<Network[]>(),
 	numberOfEpisodes: integer('number_of_episodes'),
 	numberOfSeasons: integer('number_of_seasons'),
-	originCountry: json('origin_country').$type<string[]>(),
-	originalLanguage: text('original_language'),
 	originalName: text('original_name'),
-	overview: text('overview'),
-	popularity: numericCasted('popularity'),
-	posterPath: text('poster_path'),
-	productionCompanies: json('production_companies').$type<ProductionCompany[]>(),
-	productionCountries: json('production_countries').$type<ProductionCountry[]>(),
 	seasons: json('seasons').$type<Season[]>(),
-	spokenLanguages: json('spoken_languages').$type<SpokenLanguage[]>(),
-	status: text('status'),
-	tagline: text('tagline'),
-	type: text('type'),
-	voteAverage: numericCasted('vote_average'),
-	voteCount: integer('vote_count')
+	tvId: integer('tv_id').primaryKey(),
+	type: text('type')
 });

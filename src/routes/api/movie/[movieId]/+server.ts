@@ -2,7 +2,6 @@ import { db } from '$lib/server/db';
 import { imdbMovieT } from '$lib/server/db/schema';
 import { TMDB } from '$lib/server/tmdb';
 
-import { eq } from 'drizzle-orm';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
@@ -15,34 +14,41 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	if (dbResult) return json(dbResult);
 
-	console.info('[/api/movie]: movie not found in the database, fetching from TMDB');
-
 	const tmdbResponse = await TMDB.getMovie(movieId);
 
-	// console.log(`[/api/movie] movie from TMDB: %o`, tmdbResponse);
-
 	if (!tmdbResponse || tmdbResponse.response.success === false) {
-		console.error('[/api/movie] movie not found in the TMDB as well');
 		error(404, tmdbResponse.response.status_message);
 	}
 
 	const movie = tmdbResponse.movie;
 
 	await db.insert(imdbMovieT).values({
+		adult: movie.adult,
+		backdropPath: movie.backdrop_path,
+		belongsToCollection: movie.belongs_to_collection,
+		budget: movie.budget,
+		genres: movie.genres,
+		homepage: movie.homepage,
+		imdbId: movie.imdb_id,
 		movieId: movie.id,
-		ImdbId: movie.imdb_id,
-		title: movie.title,
+		originCountry: movie.origin_country,
+		originalLanguage: movie.original_language,
 		originalTitle: movie.original_title,
 		overview: movie.overview,
-		posterPath: movie.poster_path,
-		adult: movie.adult,
-		originalLanguage: movie.original_language,
-		genreIds: movie.genres.flatMap((genre) => genre.id),
 		popularity: movie.popularity,
+		posterPath: movie.poster_path,
+		productionCompanies: movie.production_companies,
+		productionCountries: movie.production_countries,
 		releaseDate: movie.release_date,
+		revenue: movie.revenue,
+		runtime: movie.runtime,
+		spokenLanguages: movie.spoken_languages,
+		status: movie.status,
+		tagline: movie.tagline,
+		title: movie.title,
+		video: movie.video,
 		voteAverage: movie.vote_average,
-		voteCount: movie.vote_count,
-		originCountry: movie.origin_country
+		voteCount: movie.vote_count
 	});
 
 	return json(

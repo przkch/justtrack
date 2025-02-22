@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { imdbMovieT, imdbTvT } from '$lib/server/db/schema';
+import { imdbTvT } from '$lib/server/db/schema';
 import { TMDB } from '$lib/server/tmdb';
 
 import { error, json } from '@sveltejs/kit';
@@ -14,14 +14,9 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	if (dbResult) return json(dbResult);
 
-	console.info('[/api/tv]: tv series not found in the database, fetching from TMDB');
-
 	const tmdbResponse = await TMDB.getTv(tvId);
 
-	console.log(`[/api/tv] tv series from TMDB: %o`, tmdbResponse);
-
 	if (!tmdbResponse || tmdbResponse.response.success === false) {
-		console.error('[/api/tv] tv series not found in the TMDB as well');
 		error(404, tmdbResponse.response.status_message);
 	}
 

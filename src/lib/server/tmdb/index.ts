@@ -166,6 +166,7 @@ export class TMDB {
 		if (data.success === false) {
 			return <MovieResponse>{ response: data };
 		} else {
+			console.debug(data);
 			return <MovieResponse>{ response: { success: true }, movie: data };
 		}
 	}
