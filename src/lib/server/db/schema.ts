@@ -33,7 +33,7 @@ export const numericCasted = customType<{
 
 const timestamps = {
 	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-	updatedAt: timestamp('updated_at', { withTimezone: true })
+	updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull()
 };
 
 export const users = pgTable('user', {
