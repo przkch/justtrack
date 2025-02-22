@@ -9,7 +9,7 @@
 </script>
 
 <nav class="flex flex-row items-center justify-between gap-2 p-4">
-	<h3>JustTrack</h3>
+	<a href="/" class="text-xl">JustTrack</a>
 	<div class="flex flex-row items-center gap-2">
 		{#if page.data.session}
 			{#if page.data.session.user?.image}
