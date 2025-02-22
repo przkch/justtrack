@@ -12,7 +12,7 @@
 		<img
 			src={`https://image.tmdb.org/t/p/w342/${posterPath}`}
 			{alt}
-			class="h-full max-h-64 w-auto rounded-xl lg:max-h-96"
+			class="max-h-64 w-auto rounded-xl lg:max-h-96"
 		/>
 	</div>
 {/if}
