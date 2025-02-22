@@ -29,7 +29,12 @@
 						<span class="text-sm">Original title: {tv.originalName}</span>
 					{/if}
 				{/if}
-				<span>{movie ? movie.releaseDate : tv?.firstAirDate}</span>
+				<span
+					>{new Date(movie ? movie.releaseDate! : tv!.firstAirDate!).toLocaleDateString('en', {
+						year: 'numeric',
+						month: 'long'
+					})}</span
+				>
 			</div>
 
 			<div class="flex flex-col">
