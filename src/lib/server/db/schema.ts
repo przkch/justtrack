@@ -31,6 +31,11 @@ export const numericCasted = customType<{
 	toDriver: (value: number) => value.toString()
 });
 
+const timestamps = {
+	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+	updatedAt: timestamp('updated_at', { withTimezone: true })
+};
+
 export const users = pgTable('user', {
 	id: text('id')
 		.primaryKey()
@@ -115,6 +120,7 @@ export const authenticators = pgTable(
 );
 
 export const imdbMovieT = pgTable('imdb_movie_t', {
+	...timestamps,
 	movieId: integer('movie_id').primaryKey(),
 	ImdbId: text('imdb_id'),
 	title: text('title'),
