@@ -20,7 +20,7 @@
 			month: 'long',
 			day: 'numeric'
 		}),
-		media?.genres?.flatMap((genre) => genre.name).join(', ')
+		...(media?.genres?.flatMap((genre) => genre.name) ?? [])
 	];
 
 	if (media?.adult) {
