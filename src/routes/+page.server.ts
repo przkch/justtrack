@@ -7,6 +7,10 @@ export const load: PageServerLoad = async () => {
 		limit: 6,
 		orderBy: (movie, { desc }) => [desc(movie.createdAt)]
 	});
+	const recentTv = await db.query.imdbTvT.findMany({
+		limit: 6,
+		orderBy: (tv, { desc }) => [desc(tv.createdAt)]
+	});
 
-	return { recentMovies: recentMovies };
+	return { recentMovies: recentMovies, recentTv: recentTv };
 };

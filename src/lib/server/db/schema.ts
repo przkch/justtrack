@@ -1,3 +1,14 @@
+import type {
+	CreatedBy,
+	Episode,
+	Genre,
+	Network,
+	ProductionCompany,
+	ProductionCountry,
+	Season,
+	SpokenLanguage
+} from '$lib/server/tmdb';
+
 import {
 	boolean,
 	timestamp,
@@ -135,4 +146,40 @@ export const imdbMovieT = pgTable('imdb_movie_t', {
 	voteAverage: numericCasted('vote_average'),
 	voteCount: integer('vote_count'),
 	originCountry: json('origin_country').$type<string[]>()
+});
+
+export const imdbTvT = pgTable('imdb_tv_t', {
+	...timestamps,
+	adult: boolean('adult'),
+	backdropPath: text('backdrop_path'),
+	createdBy: json('created_by').$type<CreatedBy[]>(),
+	episodeRunTime: json('episode_run_time').$type<number[]>(),
+	firstAirDate: date('first_air_date'),
+	genres: json('genres').$type<Genre[]>(),
+	homepage: text('homepage'),
+	tvId: integer('tv_id').primaryKey(),
+	inProduction: boolean('is_production'),
+	languages: json('languages').$type<string[]>(),
+	lastAirDate: date('last_air_date'),
+	lastEpisodeToAir: json('last_episode_to_air').$type<Episode>(),
+	name: text('name'),
+	nextEpisodeToAir: json('next_episode_to_air').$type<Episode>(),
+	networks: json('networks').$type<Network[]>(),
+	numberOfEpisodes: integer('number_of_episodes'),
+	numberOfSeasons: integer('number_of_seasons'),
+	originCountry: json('origin_country').$type<string[]>(),
+	originalLanguage: text('original_language'),
+	originalName: text('original_name'),
+	overview: text('overview'),
+	popularity: numericCasted('popularity'),
+	posterPath: text('poster_path'),
+	productionCompanies: json('production_companies').$type<ProductionCompany[]>(),
+	productionCountries: json('production_countries').$type<ProductionCountry[]>(),
+	seasons: json('seasons').$type<Season[]>(),
+	spokenLanguages: json('spoken_languages').$type<SpokenLanguage[]>(),
+	status: text('status'),
+	tagline: text('tagline'),
+	type: text('type'),
+	voteAverage: numericCasted('vote_average'),
+	voteCount: integer('vote_count')
 });
