@@ -14,6 +14,6 @@ export const load: PageLoad = async ({ fetch, params }) => {
 	}
 
 	return {
-		tv: <typeof imdbTvT.$inferSelect & { imdbMediaT: typeof imdbMediaT.$inferSelect }>data.tv
+		tv: <typeof imdbTvT.$inferSelect & { imdbMediaT: typeof imdbMediaT.$inferSelect }>data
 	};
 };

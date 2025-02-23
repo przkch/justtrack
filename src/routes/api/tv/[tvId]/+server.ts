@@ -15,11 +15,6 @@ export const GET: RequestHandler = async ({ params }) => {
 		}
 	});
 
-	try {
-	} catch {
-		// pass
-	}
-
 	if (dbResult) return json(dbResult);
 
 	const tmdbResponse = await TMDB.getTv(tvId);
