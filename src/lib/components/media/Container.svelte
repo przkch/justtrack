@@ -47,7 +47,9 @@
 				{/each}
 			</div>
 
-			<span title={`${media?.voteCount} votes`}>{Number(media?.voteAverage) * 10}% liked</span>
+			<span title={`${media?.voteCount} votes`}>
+				{Math.round(Number(media?.voteAverage) * 10)}% liked
+			</span>
 
 			<p>{media?.overview}</p>
 
