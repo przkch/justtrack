@@ -80,12 +80,17 @@
 		</div>
 	</div>
 
-	<div>
+	<span>
+		Check <span class="italic">{movie ? movie.title : tv?.name}</span> on
 		<a
 			href={`https://www.themoviedb.org/${movie ? `movie/${movie.movieId}` : `tv/${tv?.tvId}`}`}
 			class="underline"
 		>
-			Check {movie ? movie.title : tv?.name} on TMDB
+			TMDB
 		</a>
-	</div>
+		{#if movie}
+			or
+			<a href={`https://www.imdb.com/title/${movie.imdbId}`} class="underline">IMDB</a>
+		{/if}
+	</span>
 </div>
