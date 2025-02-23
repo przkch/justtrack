@@ -12,8 +12,6 @@
 	const { movie, tv }: Props = $props();
 	const media = movie ?? tv;
 
-	console.debug(media);
-
 	const chips = [
 		new Date(movie ? movie.releaseDate! : tv!.firstAirDate!).toLocaleDateString('en', {
 			year: 'numeric',
@@ -28,11 +26,31 @@
 	}
 </script>
 
+{#if media?.backdropPath}
+	<div
+		class="fixed top-0 right-0 left-0 -z-[1000] flex h-screen w-screen flex-col overflow-hidden brightness-[0.3]"
+	>
+		<img
+			src={`https://image.tmdb.org/t/p/original/${media?.backdropPath}`}
+			alt={movie ? movie.title : tv?.name}
+			class="aspect-[2/3] h-screen max-w-screen object-cover object-center sm:aspect-[2/1]"
+			width={1920}
+			height={540}
+			decoding="async"
+			style="background: radial-gradient(70% 110% at 50% 0%, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);"
+		/>
+	</div>
+{/if}
+
 <div class="flex flex-col gap-8">
-	<div class="flex flex-row gap-4">
-		<Poster alt={movie ? movie.title : tv?.name} posterPath={media?.posterPath} />
-		<div class="flex flex-col gap-4">
+	<div class="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_3fr]">
+		<div class="flex justify-center">
+			<Poster alt={movie ? movie.title : tv?.name} posterPath={media?.posterPath} />
+		</div>
+		<div class="grid grid-cols-1 gap-4">
 			<h3 class="text-3xl font-bold">{movie ? movie.title : tv?.name}</h3>
+
+			<p class="italic">{media?.tagline}</p>
 
 			<div class="flex flex-row flex-wrap gap-2">
 				{#each chips as chip}
@@ -42,18 +60,13 @@
 
 			<span title={`${media?.voteCount} votes`}>{Number(media?.voteAverage) * 10}% liked</span>
 
-			<div class="mt-auto">
+			<p>{media?.overview}</p>
+
+			<div>
 				<Button type="filled" disabled>Add to watchlist</Button>
 			</div>
 		</div>
 	</div>
-
-	<p class="italic">
-		{media?.tagline}
-	</p>
-	<p>
-		{media?.overview}
-	</p>
 
 	<div>
 		<a
