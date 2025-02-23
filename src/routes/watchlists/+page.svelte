@@ -15,7 +15,7 @@
 		name: ''
 	});
 
-	const watchlists = data.watchlists;
+	const watchlists = $state(data.watchlists);
 
 	const addWatchlist = async (event: SubmitEvent) => {
 		const form = event.currentTarget as HTMLFormElement;
