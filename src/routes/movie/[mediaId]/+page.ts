@@ -1,6 +1,6 @@
 import type { imdbMovieT } from '$lib/server/db/schema';
 
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch, params }) => {
