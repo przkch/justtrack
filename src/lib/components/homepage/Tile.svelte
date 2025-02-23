@@ -11,7 +11,7 @@
 	const media = movie ?? tv;
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
 	<a href={movie ? `/movie/${movie.movieId}` : `/tv/${tv?.tvId}`}>
 		<Poster alt={movie ? movie.title : tv?.name} posterPath={media?.posterPath} />
 	</a>
