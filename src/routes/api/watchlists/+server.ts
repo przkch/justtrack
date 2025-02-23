@@ -29,7 +29,7 @@ export const PUT: RequestHandler = async ({ locals, request }) => {
 	const session = await locals.auth();
 	const formData = await request.formData();
 
-	const newWatchlist = await db
+	const [newWatchlist] = await db
 		.insert(watchlistT)
 		.values({
 			name: String(formData.get('name')),
@@ -39,5 +39,12 @@ export const PUT: RequestHandler = async ({ locals, request }) => {
 		})
 		.returning();
 
-	return json(newWatchlist);
+	return json(
+		await db.query.watchlistT.findFirst({
+			where: (watchlist, { eq }) => eq(watchlist.watchlistId, newWatchlist.watchlistId),
+			with: {
+				watchlistItemT: true
+			}
+		})
+	);
 };
