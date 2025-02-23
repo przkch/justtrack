@@ -9,6 +9,12 @@
 	let { children } = $props();
 </script>
 
+<svelte:head>
+	<title>JustTrack</title>
+</svelte:head>
+
+<M3Style />
+
 <nav class="flex flex-row items-center justify-between gap-2 p-4">
 	<a href="/" class="text-xl">JustTrack</a>
 	<div class="flex flex-row items-center gap-2">
@@ -22,12 +28,6 @@
 		{/if}
 	</div>
 </nav>
-
-<svelte:head>
-	<title>JustTrack</title>
-</svelte:head>
-
-<M3Style />
 
 <main class="mx-auto max-w-[900px] p-4">
 	{@render children()}
