@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { imdbTvT } from '$lib/server/db/schema';
+import { imdbTvT, imdbMediaT } from '$lib/server/db/schema';
 import { TMDB } from '$lib/server/tmdb';
 
 import { error, json } from '@sveltejs/kit';
@@ -11,6 +11,11 @@ export const GET: RequestHandler = async ({ params }) => {
 	const dbResult = await db.query.imdbTvT.findFirst({
 		where: (tv, { eq }) => eq(tv.tvId, tvId)
 	});
+
+	try {
+	} catch {
+		// pass
+	}
 
 	if (dbResult) return json(dbResult);
 
@@ -56,6 +61,8 @@ export const GET: RequestHandler = async ({ params }) => {
 		voteAverage: tv.vote_average,
 		voteCount: tv.vote_count
 	});
+
+	await db.insert(imdbMediaT).values({ tvId: tv.id });
 
 	return json(
 		await db.query.imdbTvT.findFirst({

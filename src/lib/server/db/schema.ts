@@ -18,9 +18,13 @@ import {
 	integer,
 	date,
 	json,
-	customType
+	customType,
+	serial,
+	pgEnum,
+	check
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from '@auth/core/adapters';
+import { relations, sql } from 'drizzle-orm';
 
 type NumericConfig = {
 	precision?: number;
@@ -41,6 +45,8 @@ export const numericCasted = customType<{
 	fromDriver: (value: string) => Number.parseFloat(value), // note: precision loss for very large/small digits so area to refactor if needed
 	toDriver: (value: number) => value.toString()
 });
+
+export const watchlistTypeE = pgEnum('watchlist_type_e', ['movie', 'tv']);
 
 const timestamps = {
 	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
@@ -164,6 +170,16 @@ export const imdbMovieT = pgTable('imdb_movie_t', {
 	video: boolean('video')
 });
 
+export const imdbMediaT = pgTable('imdb_media_t', {
+	itemId: serial('item_id').primaryKey().notNull(),
+	movieId: integer('movie_id')
+		.references(() => imdbMovieT.movieId)
+		.unique(),
+	tvId: integer('tv_id')
+		.references(() => imdbTvT.tvId)
+		.unique()
+});
+
 export const imdbTvT = pgTable('imdb_tv_t', {
 	...timestamps,
 	...commonMediaColumns,
@@ -184,3 +200,64 @@ export const imdbTvT = pgTable('imdb_tv_t', {
 	tvId: integer('tv_id').primaryKey(),
 	type: text('type')
 });
+
+export const watchlistT = pgTable('watchlist_t', {
+	...timestamps,
+	watchlistId: serial('watchlist_id').primaryKey().notNull(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => users.id),
+	name: text('name').notNull(),
+	isPublic: boolean('is_public').default(false).notNull(),
+	type: watchlistTypeE('type').notNull()
+});
+
+export const watchlistItemT = pgTable('watchlist_item_t', {
+	...timestamps,
+	watchlistItemId: serial('watchlist_item_id').primaryKey().notNull(),
+	watchlistId: integer('watchlist_id')
+		.notNull()
+		.references(() => watchlistT.watchlistId),
+	itemId: integer('item_id')
+		.notNull()
+		.references(() => imdbMediaT.itemId)
+});
+
+export const imdbMediaTRelations = relations(imdbMediaT, ({ one, many }) => ({
+	imdbMovieT: one(imdbMovieT, {
+		fields: [imdbMediaT.movieId],
+		references: [imdbMovieT.movieId]
+	}),
+	imdbTvT: one(imdbTvT, {
+		fields: [imdbMediaT.tvId],
+		references: [imdbTvT.tvId]
+	}),
+	watchlistItemTS: many(watchlistItemT)
+}));
+
+export const imdbMovieTRelations = relations(imdbMovieT, ({ many }) => ({
+	imdbMediaTS: many(imdbMediaT)
+}));
+
+export const imdbTvTRelations = relations(imdbTvT, ({ many }) => ({
+	imdbMediaTS: many(imdbMediaT)
+}));
+
+export const watchlistTRelations = relations(watchlistT, ({ one, many }) => ({
+	user: one(users, {
+		fields: [watchlistT.userId],
+		references: [users.id]
+	}),
+	watchlistItemT: many(watchlistItemT)
+}));
+
+export const watchlistItemTRelations = relations(watchlistItemT, ({ one }) => ({
+	imdbMediaT: one(imdbMediaT, {
+		fields: [watchlistItemT.itemId],
+		references: [imdbMediaT.itemId]
+	}),
+	watchlistT: one(watchlistT, {
+		fields: [watchlistItemT.watchlistId],
+		references: [watchlistT.watchlistId]
+	})
+}));

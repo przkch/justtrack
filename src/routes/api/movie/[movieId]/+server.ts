@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { imdbMovieT } from '$lib/server/db/schema';
+import { imdbMovieT, imdbMediaT } from '$lib/server/db/schema';
 import { TMDB } from '$lib/server/tmdb';
 
 import { error, json } from '@sveltejs/kit';
@@ -50,6 +50,8 @@ export const GET: RequestHandler = async ({ params }) => {
 		voteAverage: movie.vote_average,
 		voteCount: movie.vote_count
 	});
+
+	await db.insert(imdbMediaT).values({ movieId: movie.id });
 
 	return json(
 		await db.query.imdbMovieT.findFirst({
