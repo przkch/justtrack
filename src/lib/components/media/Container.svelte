@@ -47,7 +47,7 @@
 <AddToWatchlistDialog
 	bind:open={addToWatchlistDialogOpen}
 	name={movie ? movie.title : tv?.name}
-	itemId={movie ? movie.imdbMediaT.itemId : tv?.imdbMediaT.itemId}
+	media={media?.imdbMediaT}
 />
 
 <div class="flex flex-col gap-8">
