@@ -25,6 +25,16 @@
 	if (media?.adult) {
 		chips.push('18+');
 	}
+
+	if (movie && movie.runtime) {
+		let minutes = movie.runtime;
+		if (minutes > 60) {
+			let hours = Math.floor(minutes / 60);
+			chips.push(`${hours}h ${minutes - hours * 60}m`);
+		} else {
+			chips.push(`${minutes}m`);
+		}
+	}
 </script>
 
 {#if media?.backdropPath}
