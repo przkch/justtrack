@@ -55,7 +55,7 @@
 				</SegmentedButtonContainer>
 				<label class="flex flex-row items-center gap-2">
 					<Switch />
-					Public
+					<span class="select-none">Public</span>
 				</label>
 			</div>
 
@@ -73,14 +73,14 @@
 					<div class="flex flex-col">
 						<a href={`/watchlists/${watchlist.watchlistId}`} class="text-xl">{watchlist.name}</a>
 
-						<span>{watchlist.watchlistItemT.length} items</span>
+						<span>{watchlist.watchlistItemT.length} items, {watchlist.type}</span>
 					</div>
 					<span>
 						Created {new Date(watchlist.createdAt).toLocaleDateString('en', {
 							year: 'numeric',
 							month: 'long',
 							day: 'numeric'
-						})}, Type: {watchlist.type}
+						})}
 					</span>
 				</div>
 			</Card>

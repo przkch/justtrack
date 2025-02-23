@@ -3,15 +3,23 @@
 
 	interface Props extends HTMLImgAttributes {
 		posterPath?: string | null;
+		size?: 'sm' | 'xl';
 	}
 
-	const { alt, posterPath, class: className, ...rest }: Props = $props();
+	const { alt, posterPath, class: className, size = 'xl', ...rest }: Props = $props();
 </script>
 
 {#if posterPath}
 	<img
 		src={`https://image.tmdb.org/t/p/original/${posterPath}`}
-		class={['max-h-80 w-auto rounded-xl lg:max-h-[120rem]', className]}
+		class={[
+			' w-auto rounded-xl',
+			{
+				'max-h-40': size === 'sm',
+				'max-h-80 lg:max-h-[120rem]': size === 'xl'
+			},
+			className
+		]}
 		{...rest}
 	/>
 {/if}

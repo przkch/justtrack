@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Backdrop from '$lib/components/media/Backdrop.svelte';
 	import Poster from '$lib/components/media/Poster.svelte';
-	import type { imdbMovieT, imdbTvT } from '$lib/server/db/schema';
+	import type { imdbMediaT, imdbMovieT, imdbTvT } from '$lib/server/db/schema';
 
 	import { Button, Chip } from 'm3-svelte';
+	import AddToWatchlistDialog from './AddToWatchlistDialog.svelte';
 
 	interface Props {
-		movie?: typeof imdbMovieT.$inferSelect;
-		tv?: typeof imdbTvT.$inferSelect;
+		movie?: typeof imdbMovieT.$inferSelect & { imdbMediaT: typeof imdbMediaT.$inferSelect };
+		tv?: typeof imdbTvT.$inferSelect & { imdbMediaT: typeof imdbMediaT.$inferSelect };
 	}
 
 	const { movie, tv }: Props = $props();
@@ -35,11 +36,19 @@
 			chips.push(`${minutes}m`);
 		}
 	}
+
+	let addToWatchlistDialogOpen = $state(false);
 </script>
 
 {#if media?.backdropPath}
 	<Backdrop backdropPath={media.backdropPath} />
 {/if}
+
+<AddToWatchlistDialog
+	bind:open={addToWatchlistDialogOpen}
+	name={movie ? movie.title : tv?.name}
+	itemId={movie ? movie.imdbMediaT.itemId : tv?.imdbMediaT.itemId}
+/>
 
 <div class="flex flex-col gap-8">
 	<div class="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_3fr]">
@@ -64,7 +73,9 @@
 			<p>{media?.overview}</p>
 
 			<div>
-				<Button type="filled" disabled>Add to watchlist</Button>
+				<Button type="filled" on:click={() => (addToWatchlistDialogOpen = true)}
+					>Add to watchlist</Button
+				>
 			</div>
 		</div>
 	</div>

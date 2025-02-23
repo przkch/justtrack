@@ -9,7 +9,10 @@ export const GET: RequestHandler = async ({ params }) => {
 	const movieId = Number(params.movieId);
 
 	const dbResult = await db.query.imdbMovieT.findFirst({
-		where: (movie, { eq }) => eq(movie.movieId, movieId)
+		where: (movie, { eq }) => eq(movie.movieId, movieId),
+		with: {
+			imdbMediaT: true
+		}
 	});
 
 	if (dbResult) return json(dbResult);
@@ -55,7 +58,10 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	return json(
 		await db.query.imdbMovieT.findFirst({
-			where: (movie, { eq }) => eq(movie.movieId, movieId)
+			where: (movie, { eq }) => eq(movie.movieId, movieId),
+			with: {
+				imdbMediaT: true
+			}
 		})
 	);
 };

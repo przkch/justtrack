@@ -1,4 +1,4 @@
-import type { imdbMovieT } from '$lib/server/db/schema';
+import type { imdbMediaT, imdbMovieT } from '$lib/server/db/schema';
 
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
@@ -13,5 +13,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		error(404, data.message ?? res.statusText);
 	}
 
-	return { movie: <typeof imdbMovieT.$inferSelect>data };
+	return {
+		movie: <typeof imdbMovieT.$inferSelect & { imdbMediaT: typeof imdbMediaT.$inferSelect }>data
+	};
 };

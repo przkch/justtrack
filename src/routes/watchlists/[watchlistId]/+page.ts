@@ -1,12 +1,18 @@
-import type { watchlistT, watchlistItemT } from '$lib/server/db/schema';
+import type {
+	watchlistT,
+	watchlistItemT,
+	imdbMediaT,
+	imdbMovieT,
+	imdbTvT
+} from '$lib/server/db/schema';
 
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = async ({ fetch, params }) => {
 	const watchlistId = Number(params.watchlistId);
 
-	const res = await fetch(`/api/watchlist/${watchlistId}`);
+	const res = await fetch(`/api/watchlists/${watchlistId}`);
 	const data = await res.json();
 
 	if (!res.ok) {
@@ -15,9 +21,14 @@ export const load: PageLoad = async ({ params }) => {
 
 	return {
 		watchlist: <
-			(typeof watchlistT.$inferSelect & {
-				watchlistItemT: (typeof watchlistItemT.$inferSelect)[];
-			})[]
+			typeof watchlistT.$inferSelect & {
+				watchlistItemT: (typeof watchlistItemT.$inferSelect & {
+					imdbMediaT: typeof imdbMediaT.$inferSelect & {
+						imdbMovieT: typeof imdbMovieT.$inferSelect;
+						imdbTvT: typeof imdbTvT.$inferSelect;
+					};
+				})[];
+			}
 		>data
 	};
 };

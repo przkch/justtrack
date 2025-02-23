@@ -9,7 +9,10 @@ export const GET: RequestHandler = async ({ params }) => {
 	const tvId = Number(params.tvId);
 
 	const dbResult = await db.query.imdbTvT.findFirst({
-		where: (tv, { eq }) => eq(tv.tvId, tvId)
+		where: (tv, { eq }) => eq(tv.tvId, tvId),
+		with: {
+			imdbMediaT: true
+		}
 	});
 
 	try {
@@ -66,7 +69,10 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	return json(
 		await db.query.imdbTvT.findFirst({
-			where: (tv, { eq }) => eq(tv.tvId, tvId)
+			where: (tv, { eq }) => eq(tv.tvId, tvId),
+			with: {
+				imdbMediaT: true
+			}
 		})
 	);
 };

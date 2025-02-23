@@ -232,15 +232,15 @@ export const imdbMediaTRelations = relations(imdbMediaT, ({ one, many }) => ({
 		fields: [imdbMediaT.tvId],
 		references: [imdbTvT.tvId]
 	}),
-	watchlistItemTS: many(watchlistItemT)
+	watchlistItemT: many(watchlistItemT)
 }));
 
-export const imdbMovieTRelations = relations(imdbMovieT, ({ many }) => ({
-	imdbMediaTS: many(imdbMediaT)
+export const imdbMovieTRelations = relations(imdbMovieT, ({ one }) => ({
+	imdbMediaT: one(imdbMediaT)
 }));
 
-export const imdbTvTRelations = relations(imdbTvT, ({ many }) => ({
-	imdbMediaTS: many(imdbMediaT)
+export const imdbTvTRelations = relations(imdbTvT, ({ one }) => ({
+	imdbMediaT: one(imdbMediaT)
 }));
 
 export const watchlistTRelations = relations(watchlistT, ({ one, many }) => ({

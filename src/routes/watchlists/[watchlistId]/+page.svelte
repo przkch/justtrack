@@ -1,35 +1,37 @@
 <script lang="ts">
-	import {
-		Button,
-		Card,
-		SegmentedButtonContainer,
-		SegmentedButtonItem,
-		Switch,
-		TextField
-	} from 'm3-svelte';
+	import Poster from '$lib/components/media/Poster.svelte';
+
+	import { Card, Snackbar, Switch, TextField } from 'm3-svelte';
+	import type { SnackbarIn } from 'm3-svelte';
 	import type { PageProps } from './$types';
-	import { watchlistItemT } from '$lib/server/db/schema';
 
 	let { data }: PageProps = $props();
 
-	let addWatchlistData = $state({
-		name: ''
+	let watchlist = data.watchlist;
+
+	let snackbar = $state((data: SnackbarIn) => {});
+	let editWatchlistData = $state({
+		name: watchlist.name,
+		isPublic: watchlist.isPublic
 	});
 
-	const watchlists = data.watchlist;
+	$effect(() => {
+		saveWatchlist();
+	});
 
-	const editWatchlist = async (event: SubmitEvent) => {
-		const form = event.currentTarget as HTMLFormElement;
-		const formData = new FormData(form);
+	const saveWatchlist = async () => {
+		const formData = new FormData();
 
-		formData.set('name', addWatchlistData.name);
+		formData.set('name', editWatchlistData.name);
+		formData.set('isPublic', String(editWatchlistData.isPublic));
 
-		console.log(formData);
+		const res = await fetch(`/api/watchlists/${watchlist.watchlistId}`, {
+			method: 'POST',
+			body: formData
+		});
 
-		const res = await fetch('/api/watchlists', { method: 'POST', body: formData });
-		const resData = await res.json();
 		if (res.status === 200) {
-			watchlists.push({ ...resData, watchlistItemT: [] });
+			snackbar({ message: 'Watchlist updated', closable: true });
 		}
 	};
 </script>
@@ -38,43 +40,46 @@
 	<title>Watchlists | JustTrack</title>
 </svelte:head>
 
+<Snackbar bind:show={snackbar} />
+
 <div class="flex flex-col gap-8">
-	<div class="flex flex-col gap-2">
-		<form
-			onsubmit={editWatchlist}
-			class="grid grid-cols-1 items-center gap-4 lg:grid-cols-[4.8fr_2fr_1fr_1fr]"
-		>
-			<TextField name="name" bind:value={addWatchlistData.name} required />
-			<div class="flex w-auto flex-row items-center justify-center gap-4">
-				<SegmentedButtonContainer>
-					<input type="radio" id="mediaTypeMovie" name="mediaType" value="movie" required />
-					<SegmentedButtonItem input="mediaTypeMovie">Movies</SegmentedButtonItem>
-
-					<input type="radio" id="mediaTypeTv" name="mediaType" value="tv" required />
-					<SegmentedButtonItem input="mediaTypeTv">TV series</SegmentedButtonItem>
-				</SegmentedButtonContainer>
-				<label class="flex flex-row items-center gap-2">
-					<Switch />
-					Public
-				</label>
-			</div>
-
-			<div class="flex flex-col items-center lg:block">
-				<Button type="filled">Dodaj</Button>
-			</div>
-		</form>
+	<div class="grid grid-cols-[10fr_1fr] items-center gap-4">
+		<TextField name="name" bind:value={editWatchlistData.name} required />
+		<div class="flex w-auto flex-row items-center justify-center gap-4">
+			<label class="flex flex-row items-center gap-2">
+				<Switch bind:checked={editWatchlistData.isPublic} />
+				<span class="select-none">Public</span>
+			</label>
+		</div>
 	</div>
 
-	{#if watchlists.length}
-		<div class="flex flex-col gap-2">
-			<h3>Your watchlists</h3>
-			{#each watchlists as watchlist (watchlist.watchlistId)}
-				<Card type="elevated">
-					<h4 class="text-xl">
-						<a href={`/watchlists/${watchlist.watchlistId}`}>{watchlist.name}</a>
-					</h4>
-				</Card>
-			{/each}
-		</div>
-	{/if}
+	<div class="flex flex-col gap-4">
+		{#each watchlist.watchlistItemT as item (item.itemId)}
+			<Card type="filled">
+				<div class="flex flex-row gap-4 text-sm">
+					<Poster
+						alt={item.imdbMediaT.imdbMovieT
+							? item.imdbMediaT.imdbMovieT.title
+							: item.imdbMediaT.imdbTvT?.name}
+						posterPath={item.imdbMediaT.imdbMovieT
+							? item.imdbMediaT.imdbMovieT.posterPath
+							: item.imdbMediaT.imdbTvT?.posterPath}
+						size="sm"
+					/>
+					<div class="flex flex-col">
+						<a
+							href={item.imdbMediaT.imdbMovieT
+								? `/movie/${item.imdbMediaT.imdbMovieT.movieId}`
+								: `/tv/${item.imdbMediaT.imdbTvT.tvId}`}
+							class="text-xl"
+						>
+							{item.imdbMediaT.imdbMovieT
+								? item.imdbMediaT.imdbMovieT.title
+								: item.imdbMediaT.imdbTvT.name}
+						</a>
+					</div>
+				</div>
+			</Card>
+		{/each}
+	</div>
 </div>
