@@ -80,6 +80,10 @@
 					</div>
 				</div>
 			</Card>
+		{:else}
+			<p class="text-center">
+				No {watchlist.type === 'movie' ? 'movies' : 'TV series'} have been added to this list yet :(
+			</p>
 		{/each}
 	</div>
 </div>
