@@ -22,6 +22,10 @@
 	</div>
 </nav>
 
+<svelte:head>
+	<title>JustTrack</title>
+</svelte:head>
+
 <StyleFromScheme
 	lightScheme={{
 		primary: 4284831119,

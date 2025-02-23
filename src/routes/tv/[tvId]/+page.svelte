@@ -7,4 +7,8 @@
 	const tv = data.tv;
 </script>
 
+<svelte:head>
+	<title>{tv.name} | JustTrack</title>
+</svelte:head>
+
 <Container {tv} />

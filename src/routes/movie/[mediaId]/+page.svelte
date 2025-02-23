@@ -7,4 +7,8 @@
 	const movie = data.movie;
 </script>
 
+<svelte:head>
+	<title>{movie.title} | JustTrack</title>
+</svelte:head>
+
 <Container {movie} />
