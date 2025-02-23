@@ -1,6 +1,7 @@
 import { db } from '$lib/server/db';
 import { watchlistItemT, watchlistT, watchlistTypeE } from '$lib/server/db/schema';
 
+import { eq } from 'drizzle-orm';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
@@ -18,13 +19,24 @@ export const PUT: RequestHandler = async ({ locals, params }) => {
 		throw error(401);
 	}
 
-	const [newItem] = await db
-		.insert(watchlistItemT)
-		.values({
-			watchlistId: watchlistId,
-			itemId: itemId
-		})
-		.returning();
+	let newItem: typeof watchlistItemT.$inferSelect | undefined;
+
+	await db.transaction(async (tx) => {
+		[newItem] = await tx
+			.insert(watchlistItemT)
+			.values({
+				watchlistId: watchlistId,
+				itemId: itemId
+			})
+			.returning();
+
+		await tx
+			.update(watchlistT)
+			.set({
+				updatedAt: new Date()
+			})
+			.where(eq(watchlistT.watchlistId, watchlistId));
+	});
 
 	return json(newItem);
 };
