@@ -41,6 +41,8 @@
 					</div>
 				</div>
 			</Card>
+		{:else}
+			<p class="text-center">No media in this watchlist :(</p>
 		{/each}
 	</div>
 </div>

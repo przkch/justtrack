@@ -111,6 +111,8 @@
 					</div>
 				</div>
 			</Card>
+		{:else}
+			<p class="text-center">You have no watchlists yet :(</p>
 		{/each}
 	</div>
 </div>
