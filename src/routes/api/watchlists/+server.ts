@@ -1,15 +1,23 @@
 import { db } from '$lib/server/db';
 import { watchlistT, watchlistTypeE } from '$lib/server/db/schema';
 
+import { and, eq } from 'drizzle-orm';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ locals }) => {
+export const GET: RequestHandler = async ({ locals, url }) => {
 	const session = await locals.auth();
+	const mediaType = url.searchParams.get('mediaType') as (typeof watchlistTypeE.enumValues)[number];
+
+	const filters = [eq(watchlistT.userId, session!.user!.id!)];
+
+	if (mediaType && watchlistTypeE.enumValues.includes(mediaType)) {
+		filters.push(eq(watchlistT.type, mediaType));
+	}
 
 	return json(
 		await db.query.watchlistT.findMany({
-			where: (watchlist, { eq }) => eq(watchlist.userId, session!.user!.id!),
+			where: and(...filters),
 			with: {
 				watchlistItemT: true
 			}
