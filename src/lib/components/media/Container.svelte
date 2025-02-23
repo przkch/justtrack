@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Backdrop from '$lib/components/media/Backdrop.svelte';
 	import Poster from '$lib/components/media/Poster.svelte';
 	import type { imdbMovieT, imdbTvT } from '$lib/server/db/schema';
 
@@ -27,19 +28,7 @@
 </script>
 
 {#if media?.backdropPath}
-	<div
-		class="fixed top-0 right-0 left-0 -z-[1000] flex h-screen w-screen flex-col overflow-hidden brightness-[0.3]"
-	>
-		<img
-			src={`https://image.tmdb.org/t/p/original/${media?.backdropPath}`}
-			alt={movie ? movie.title : tv?.name}
-			class="aspect-[2/3] h-screen max-w-screen object-cover object-center sm:aspect-[2/1]"
-			width={1920}
-			height={540}
-			decoding="async"
-			style="background: radial-gradient(70% 110% at 50% 0%, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);"
-		/>
-	</div>
+	<Backdrop backdropPath={media.backdropPath} />
 {/if}
 
 <div class="flex flex-col gap-8">
