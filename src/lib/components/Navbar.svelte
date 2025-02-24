@@ -28,8 +28,9 @@
 </Dialog>
 
 <nav
-	class="sticky top-4 z-50 mx-auto mb-4 max-w-[900px] rounded-xl"
-	style:background-color="rgb(var(--m3-scheme-surface-container))"
+	class="sticky top-4 z-50 mx-auto mb-4 max-w-[900px] rounded-xl backdrop-blur-xs"
+	style:background-color={`color-mix(in oklab, rgb(var(--m3-scheme-surface-container)), transparent
+	20%)`}
 >
 	<div class="grid grid-cols-3 items-center justify-between gap-2 px-4 py-2 md:grid-cols-2">
 		<div class="flex flex-row items-center gap-8">
