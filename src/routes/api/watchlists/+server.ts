@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
-import { watchlistT, watchlistTypeE } from '$lib/server/db/schema';
+import { watchlistItemT, watchlistT, watchlistTypeE } from '$lib/server/db/schema';
 
-import { and, eq } from 'drizzle-orm';
+import { and, eq, ne } from 'drizzle-orm';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
