@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Poster from '$lib/components/media/Poster.svelte';
+	import WatchlistItem from '$lib/components/wachlist/Item.svelte';
 
-	import { Button, Card, Snackbar, Switch, TextField } from 'm3-svelte';
+	import { Button, Snackbar, Switch, TextField } from 'm3-svelte';
 	import type { SnackbarIn } from 'm3-svelte';
 	import type { PageProps } from './$types';
 
@@ -82,39 +82,7 @@
 
 	<div class="flex flex-col gap-4">
 		{#each watchlist.watchlistItemT as item (item.itemId)}
-			<Card type="filled">
-				<div class="flex flex-row justify-between gap-4">
-					<div class="flex flex-row gap-4 text-sm">
-						<Poster
-							alt={item.imdbMediaT.imdbMovieT
-								? item.imdbMediaT.imdbMovieT.title
-								: item.imdbMediaT.imdbTvT?.name}
-							posterPath={item.imdbMediaT.imdbMovieT
-								? item.imdbMediaT.imdbMovieT.posterPath
-								: item.imdbMediaT.imdbTvT?.posterPath}
-							size="sm"
-						/>
-						<div class="flex flex-col">
-							<a
-								href={item.imdbMediaT.imdbMovieT
-									? `/movie/${item.imdbMediaT.imdbMovieT.movieId}`
-									: `/tv/${item.imdbMediaT.imdbTvT.tvId}`}
-								class="text-xl"
-							>
-								{item.imdbMediaT.imdbMovieT
-									? item.imdbMediaT.imdbMovieT.title
-									: item.imdbMediaT.imdbTvT.name}
-							</a>
-						</div>
-					</div>
-
-					<div class="flex flex-col justify-end">
-						<Button type="filled" on:click={() => deleteFromWatchlist(item.itemId)}>
-							Remove from the watchlist
-						</Button>
-					</div>
-				</div>
-			</Card>
+			<WatchlistItem {item} />
 		{:else}
 			<p class="text-center">
 				No {watchlist.type === 'movie' ? 'movies' : 'TV series'} have been added to this list yet :(
