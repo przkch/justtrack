@@ -1,29 +1,20 @@
 <script lang="ts">
 	import Poster from '$lib/components/media/Poster.svelte';
 
-	import { Card, Snackbar, Switch, TextField } from 'm3-svelte';
+	import { Button, Card, Snackbar, Switch, TextField } from 'm3-svelte';
 	import type { SnackbarIn } from 'm3-svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 
-	let watchlist = data.watchlist;
-
+	let watchlist = $state(data.watchlist);
 	let snackbar = $state((data: SnackbarIn) => {});
-	let editWatchlistData = $state({
-		name: watchlist.name,
-		isPublic: watchlist.isPublic
-	});
-
-	$effect(() => {
-		saveWatchlist();
-	});
 
 	const saveWatchlist = async () => {
 		const formData = new FormData();
 
-		formData.set('name', editWatchlistData.name);
-		formData.set('isPublic', String(editWatchlistData.isPublic));
+		formData.set('name', watchlist.name);
+		formData.set('isPublic', String(watchlist.isPublic));
 
 		const res = await fetch(`/api/watchlists/${watchlist.watchlistId}`, {
 			method: 'POST',
@@ -31,7 +22,35 @@
 		});
 
 		if (res.status === 200) {
+			const data = await res.json();
+			watchlist = data;
 			snackbar({ message: 'Watchlist updated', closable: true });
+		}
+	};
+
+	const shareWatchlist = async () => {
+		try {
+			await navigator.clipboard.writeText(
+				`https://justtrack.przekichane.pl/watchlists/public/${watchlist.watchlistId}`
+			);
+
+			snackbar({
+				message: 'Link to this watchlist successfully copied to the clipboard!',
+				closable: true
+			});
+		} catch (e) {
+			console.error(e);
+			snackbar({ message: 'Something went wrong while copying the link!', closable: true });
+		}
+	};
+
+	const deleteFromWatchlist = async (itemId: number) => {
+		const res = await fetch(`/api/watchlists/${watchlist.watchlistId}/item/${itemId}`, {
+			method: 'DELETE'
+		});
+		if (res.status === 200) {
+			watchlist.watchlistItemT = watchlist.watchlistItemT.filter((item) => item.itemId !== itemId);
+			snackbar({ message: 'Item removed from the watchlist!', closable: true });
 		}
 	};
 </script>
@@ -43,40 +62,56 @@
 <Snackbar bind:show={snackbar} />
 
 <div class="flex flex-col gap-8">
-	<div class="grid grid-cols-[10fr_1fr] items-center gap-4">
-		<TextField name="name" bind:value={editWatchlistData.name} required />
+	<div class="grid grid-cols-[10fr_1fr_1fr] items-center gap-4">
+		<TextField name="name" bind:value={watchlist.name} required />
 		<div class="flex w-auto flex-row items-center justify-center gap-4">
 			<label class="flex flex-row items-center gap-2">
-				<Switch bind:checked={editWatchlistData.isPublic} />
+				<Switch bind:checked={watchlist.isPublic} />
 				<span class="select-none">Public</span>
 			</label>
 		</div>
+
+		<Button type="filled" on:click={saveWatchlist}>Save</Button>
 	</div>
+
+	{#if watchlist.isPublic}
+		<div class="flex flex-row justify-start">
+			<Button type="filled" on:click={shareWatchlist}>Share link to this watchlist</Button>
+		</div>
+	{/if}
 
 	<div class="flex flex-col gap-4">
 		{#each watchlist.watchlistItemT as item (item.itemId)}
 			<Card type="filled">
-				<div class="flex flex-row gap-4 text-sm">
-					<Poster
-						alt={item.imdbMediaT.imdbMovieT
-							? item.imdbMediaT.imdbMovieT.title
-							: item.imdbMediaT.imdbTvT?.name}
-						posterPath={item.imdbMediaT.imdbMovieT
-							? item.imdbMediaT.imdbMovieT.posterPath
-							: item.imdbMediaT.imdbTvT?.posterPath}
-						size="sm"
-					/>
-					<div class="flex flex-col">
-						<a
-							href={item.imdbMediaT.imdbMovieT
-								? `/movie/${item.imdbMediaT.imdbMovieT.movieId}`
-								: `/tv/${item.imdbMediaT.imdbTvT.tvId}`}
-							class="text-xl"
-						>
-							{item.imdbMediaT.imdbMovieT
+				<div class="flex flex-row justify-between gap-4">
+					<div class="flex flex-row gap-4 text-sm">
+						<Poster
+							alt={item.imdbMediaT.imdbMovieT
 								? item.imdbMediaT.imdbMovieT.title
-								: item.imdbMediaT.imdbTvT.name}
-						</a>
+								: item.imdbMediaT.imdbTvT?.name}
+							posterPath={item.imdbMediaT.imdbMovieT
+								? item.imdbMediaT.imdbMovieT.posterPath
+								: item.imdbMediaT.imdbTvT?.posterPath}
+							size="sm"
+						/>
+						<div class="flex flex-col">
+							<a
+								href={item.imdbMediaT.imdbMovieT
+									? `/movie/${item.imdbMediaT.imdbMovieT.movieId}`
+									: `/tv/${item.imdbMediaT.imdbTvT.tvId}`}
+								class="text-xl"
+							>
+								{item.imdbMediaT.imdbMovieT
+									? item.imdbMediaT.imdbMovieT.title
+									: item.imdbMediaT.imdbTvT.name}
+							</a>
+						</div>
+					</div>
+
+					<div class="flex flex-col justify-end">
+						<Button type="filled" on:click={() => deleteFromWatchlist(item.itemId)}>
+							Remove from the watchlist
+						</Button>
 					</div>
 				</div>
 			</Card>

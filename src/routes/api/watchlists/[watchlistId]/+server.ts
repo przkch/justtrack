@@ -53,5 +53,25 @@ export const POST: RequestHandler = async ({ locals, params, request }) => {
 		.where(eq(watchlistT.watchlistId, watchlistId))
 		.returning();
 
-	return json(updatedWatchlist);
+	return json(
+		await db.query.watchlistT.findFirst({
+			where: (watchlist, { and, eq }) =>
+				and(
+					eq(watchlist.userId, session!.user!.id!),
+					eq(watchlist.watchlistId, updatedWatchlist.watchlistId)
+				),
+			with: {
+				watchlistItemT: {
+					with: {
+						imdbMediaT: {
+							with: {
+								imdbMovieT: true,
+								imdbTvT: true
+							}
+						}
+					}
+				}
+			}
+		})
+	);
 };
