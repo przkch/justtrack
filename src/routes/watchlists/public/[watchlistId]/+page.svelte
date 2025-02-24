@@ -13,7 +13,7 @@
 </svelte:head>
 
 <div class="flex flex-col gap-8">
-	<div class="flex flex-row justify-between gap-2">
+	<div class="flex flex-col justify-between gap-4 lg:flex-row">
 		<div class="flex flex-col">
 			<h3 class="text-xl font-bold">{watchlist.name}</h3>
 			<span
@@ -33,9 +33,9 @@
 			</span>
 		</div>
 
-		<div class="flex flex-col justify-center">
-			<div class="grid grid-cols-[1fr_3fr] gap-x-1">
-				<span class="text-right">Created</span>
+		<div class="flex w-fit flex-col justify-center">
+			<div class="grid grid-cols-[1fr_3fr] flex-col gap-x-1">
+				<span class="lg:text-right">Created</span>
 				<span class="font-bold">
 					{new Date(watchlist.createdAt).toLocaleDateString('en', {
 						year: 'numeric',
@@ -46,7 +46,7 @@
 					})}
 				</span>
 				{#if watchlist.createdAt !== watchlist.updatedAt}
-					<span class="text-right">Updated</span>
+					<span class="lg:text-right">Updated</span>
 					<span class="font-bold">
 						{new Date(watchlist.updatedAt).toLocaleDateString('en', {
 							year: 'numeric',
