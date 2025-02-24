@@ -21,7 +21,7 @@ import {
 	customType,
 	serial,
 	pgEnum,
-	check
+	unique
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccountType } from '@auth/core/adapters';
 import { relations, sql } from 'drizzle-orm';
@@ -212,16 +212,20 @@ export const watchlistT = pgTable('watchlist_t', {
 	type: watchlistTypeE('type').notNull()
 });
 
-export const watchlistItemT = pgTable('watchlist_item_t', {
-	...timestamps,
-	watchlistItemId: serial('watchlist_item_id').primaryKey().notNull(),
-	watchlistId: integer('watchlist_id')
-		.notNull()
-		.references(() => watchlistT.watchlistId),
-	itemId: integer('item_id')
-		.notNull()
-		.references(() => imdbMediaT.itemId)
-});
+export const watchlistItemT = pgTable(
+	'watchlist_item_t',
+	{
+		...timestamps,
+		watchlistItemId: serial('watchlist_item_id').primaryKey().notNull(),
+		watchlistId: integer('watchlist_id')
+			.notNull()
+			.references(() => watchlistT.watchlistId),
+		itemId: integer('item_id')
+			.notNull()
+			.references(() => imdbMediaT.itemId)
+	},
+	(table) => [unique().on(table.watchlistId, table.itemId)]
+);
 
 export const imdbMediaTRelations = relations(imdbMediaT, ({ one, many }) => ({
 	imdbMovieT: one(imdbMovieT, {
