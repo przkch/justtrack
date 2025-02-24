@@ -20,7 +20,18 @@
 							{watchlist.name}</a
 						>
 						<span>By <span class="font-bold">{watchlist.user.name}</span></span>
-						<span>{watchlist.watchlistItemT.length} items, {watchlist.type}</span>
+						<span>
+							{[
+								`${watchlist.watchlistItemT.length} items`,
+								watchlist.type === 'movie'
+									? 'Movies'
+									: watchlist.type === 'tv'
+										? 'TV series'
+										: 'Movies & TV series'
+							]
+								.filter((v) => v)
+								.join(', ')}
+						</span>
 					</div>
 					<div class="grid grid-cols-[1fr_3fr] gap-x-1">
 						<span class="text-right">Created</span>

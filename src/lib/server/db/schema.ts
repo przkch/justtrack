@@ -46,7 +46,7 @@ export const numericCasted = customType<{
 	toDriver: (value: number) => value.toString()
 });
 
-export const watchlistTypeE = pgEnum('watchlist_type_e', ['movie', 'tv']);
+export const watchlistTypeE = pgEnum('watchlist_type_e', ['movie', 'tv', 'both']);
 
 const timestamps = {
 	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),

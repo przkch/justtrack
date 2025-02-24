@@ -47,10 +47,10 @@
 			<TextField name="name" bind:value={addWatchlistData.name} required />
 			<div class="flex w-auto flex-row items-center justify-center gap-4">
 				<SegmentedButtonContainer>
-					<input type="radio" id="mediaTypeMovie" name="mediaType" value="movie" required />
+					<input type="checkbox" id="mediaTypeMovie" name="mediaType" value="movie" />
 					<SegmentedButtonItem input="mediaTypeMovie">Movies</SegmentedButtonItem>
 
-					<input type="radio" id="mediaTypeTv" name="mediaType" value="tv" required />
+					<input type="checkbox" id="mediaTypeTv" name="mediaType" value="tv" />
 					<SegmentedButtonItem input="mediaTypeTv">TV series</SegmentedButtonItem>
 				</SegmentedButtonContainer>
 				<label class="flex flex-row items-center gap-2">
@@ -75,15 +75,19 @@
 							{watchlist.name}
 						</a>
 
-						<span
-							>{[
+						<span>
+							{[
 								`${watchlist.watchlistItemT.length} items`,
-								watchlist.type === 'movie' ? 'Movies' : 'TV series',
+								watchlist.type === 'movie'
+									? 'Movies'
+									: watchlist.type === 'tv'
+										? 'TV series'
+										: 'Movies & TV series',
 								watchlist.isPublic ? `public` : ''
 							]
 								.filter((v) => v)
-								.join(', ')}</span
-						>
+								.join(', ')}
+						</span>
 					</div>
 					<div class="grid grid-cols-[1fr_3fr] gap-x-1">
 						<span class="text-right">Created</span>
