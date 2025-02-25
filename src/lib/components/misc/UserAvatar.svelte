@@ -14,7 +14,11 @@
 </script>
 
 {#if user?.image}
-	<img src={user.image} class="size-10 rounded-full" alt="User Avatar" />
+	<img
+		src={user.image}
+		class="max-h-10 min-h-10 max-w-10 min-w-10 rounded-full"
+		alt="User Avatar"
+	/>
 {:else}
 	<div
 		class="flex size-8 items-center justify-center rounded-full p-5"
