@@ -3,9 +3,11 @@
 	import UserAvatar from '$lib/components/misc/UserAvatar.svelte';
 	import Search from '$lib/components/misc/Search.svelte';
 
+	import Favicon from '~icons/justtrack/favicon';
+
 	import { page } from '$app/state';
 	import { signIn, signOut } from '@auth/sveltekit/client';
-	import { Button, Dialog } from 'm3-svelte';
+	import { Button, ButtonLink, Dialog } from 'm3-svelte';
 
 	const session = page.data.session;
 
@@ -32,9 +34,15 @@
 	style:background-color={`color-mix(in oklab, rgb(var(--m3-scheme-surface-container)), transparent
 	20%)`}
 >
-	<div class="grid grid-cols-3 items-center justify-between gap-2 px-4 py-2 md:grid-cols-2">
+	<div class="grid grid-cols-[2fr_1fr] items-center justify-between gap-2 px-4 py-2">
 		<div class="flex flex-row items-center gap-8">
-			<a href="/" class="text-xl font-bold">JustTrack</a>
+			<ButtonLink type="text" href="/">
+				<div class="flex flex-row items-center gap-4">
+					<Favicon style="font-size: 1.25rem" />
+					<span class="text-xl font-bold">JustTrack</span>
+				</div>
+			</ButtonLink>
+
 			<div class="mdflex hidden flex-row items-center gap-4 md:flex">
 				<a data-sveltekit-reload href="/watchlists">Your watchlists</a>
 				<a data-sveltekit-reload href="/watchlists/public">Public watchlists</a>
