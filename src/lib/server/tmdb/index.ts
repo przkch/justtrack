@@ -146,6 +146,34 @@ export interface TvResponse {
 	tv: Tv;
 }
 
+export interface SearchMultiResult {
+	adult: boolean;
+	backdrop_path: string;
+	first_air_date?: string;
+	genre_ids: number[];
+	id: number;
+	media_type: 'movie' | 'tv';
+	name?: string;
+	original_name?: string;
+	origin_country: string[];
+	original_language: string;
+	original_title: string;
+	overview: string;
+	popularity: number;
+	poster_path: string;
+	release_date?: string;
+	title?: string;
+	video: boolean;
+	vote_average: number;
+	vote_count: number;
+}
+export interface SearchMultiResponse {
+	page: number;
+	results: SearchMultiResult[];
+	total_pages: number;
+	total_results: number;
+}
+
 export class TMDB {
 	static async get(endpoint: string): Promise<Response> {
 		const url = `https://api.themoviedb.org/3${endpoint}`;
@@ -177,6 +205,18 @@ export class TMDB {
 			return <TvResponse>{ response: data };
 		} else {
 			return <TvResponse>{ response: { success: true }, tv: data };
+		}
+	}
+
+	static async searchMulti(
+		query: string
+	): Promise<{ response: SearchMultiResponse; success: boolean }> {
+		const res = await TMDB.get(`/search/multi?query=${query}`);
+		const data = await res.json();
+		if (data.success === false) {
+			return { response: data, success: false };
+		} else {
+			return { response: data, success: true };
 		}
 	}
 }
