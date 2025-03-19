@@ -31,7 +31,7 @@
 
 <nav class="sticky top-4 z-50 mx-auto mb-4 max-w-[900px] px-4">
 	<div
-		class="grid grid-cols-[2fr_1fr] items-center justify-between gap-2 rounded-xl px-4 py-2 backdrop-blur-xs"
+		class="grid grid-cols-[1fr_1fr_1fr] items-center justify-between gap-2 rounded-xl px-4 py-2 backdrop-blur-xs md:grid-cols-[2fr_1fr]"
 		style:background-color={`color-mix(in oklab, rgb(var(--m3-scheme-surface-container)), transparent
 	20%)`}
 	>
@@ -49,8 +49,14 @@
 			</div>
 		</div>
 
-		<div class="flex flex-row items-center justify-end gap-4">
+		<div class="block md:hidden">
 			<Search />
+		</div>
+
+		<div class="flex flex-row items-center justify-end gap-4">
+			<div class="hidden md:block">
+				<Search />
+			</div>
 			{#if session}
 				<button
 					onclick={() => (userDialogOpened = true)}
