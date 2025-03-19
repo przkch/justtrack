@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Tile from '$lib/components/homepage/Tile.svelte';
+	import Backdrop from '$lib/components/media/Backdrop.svelte';
 
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 	const { recentMovies, recentTv } = data;
 </script>
+
+<Backdrop backdropPath={recentMovies[0].backdropPath} />
 
 <div class="flex flex-col gap-8">
 	<div class="flex flex-col gap-4">
