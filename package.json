@@ -17,7 +17,7 @@
 		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
-		"@iconify-json/material-symbols": "^1.2.14",
+		"@iconify-json/material-symbols": "^1.2.16",
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/kit": "^2.16.0",

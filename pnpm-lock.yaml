@@ -31,8 +31,8 @@ importers:
         version: 3.4.5
     devDependencies:
       '@iconify-json/material-symbols':
-        specifier: ^1.2.14
-        version: 1.2.14
+        specifier: ^1.2.16
+        version: 1.2.16
       '@sveltejs/adapter-auto':
         specifier: ^4.0.0
         version: 4.0.0(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))
@@ -555,8 +555,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iconify-json/material-symbols@1.2.14':
-    resolution: {integrity: sha512-S0AAFFQPVr8Dkrprspz/otNjxdD3rJRXDGZjbO8a8zn8ZR5mO8jAF81lVoTfUWxPH6SCtH2lK1JQGXHGPxld7g==}
+  '@iconify-json/material-symbols@1.2.16':
+    resolution: {integrity: sha512-hCUbIYLWPX9YMChvqEScG5tvFLZ2arXl+bnsvUQDrtsGq00wu4S4qIofH3uZgClYxXhvApkDKtJDlXhoygzmMQ==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1754,7 +1754,7 @@ snapshots:
   '@esbuild/win32-x64@0.24.2':
     optional: true
 
-  '@iconify-json/material-symbols@1.2.14':
+  '@iconify-json/material-symbols@1.2.16':
     dependencies:
       '@iconify/types': 2.0.0
 
