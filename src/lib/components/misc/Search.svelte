@@ -77,7 +77,7 @@
 	<input
 		type="text"
 		placeholder="Search"
-		class="border-none outline-none"
+		class="w-32 border-none outline-none"
 		autocomplete="off"
 		bind:value={query}
 	/>
