@@ -69,9 +69,8 @@
 </div>
 
 <div
-	class="z-50 grid grid-cols-[1fr_90%] items-center gap-2 rounded-sm px-2 py-3"
-	style:border=".0625rem solid rgb(var(--error, var(--m3-scheme-outline)))"
-	style:color="rgb(var(--m3-scheme-on-surface))"
+	class="z-50 grid grid-cols-[1fr_90%] items-center gap-4 rounded-full px-5 py-3"
+	style:background="rgb(var(--m3-scheme-background))"
 >
 	<MaterialSymbolsSearchRounded />
 	<input
