@@ -29,17 +29,17 @@
 	</svelte:fragment>
 </Dialog>
 
-<nav
-	class="sticky top-4 z-50 mx-auto mb-4 max-w-[900px] rounded-xl backdrop-blur-xs"
-	style:background-color={`color-mix(in oklab, rgb(var(--m3-scheme-surface-container)), transparent
+<nav class="sticky top-4 z-50 mx-auto mb-4 max-w-[900px] px-4">
+	<div
+		class="grid grid-cols-[2fr_1fr] items-center justify-between gap-2 rounded-xl px-4 py-2 backdrop-blur-xs"
+		style:background-color={`color-mix(in oklab, rgb(var(--m3-scheme-surface-container)), transparent
 	20%)`}
->
-	<div class="grid grid-cols-[2fr_1fr] items-center justify-between gap-2 px-4 py-2">
+	>
 		<div class="flex flex-row items-center gap-8">
 			<ButtonLink type="text" href="/">
 				<div class="flex flex-row items-center gap-4">
 					<Favicon style="font-size: 1.25rem" />
-					<span class="text-xl font-bold">JustTrack</span>
+					<span class="hidden text-xl font-bold lg:inline-block">JustTrack</span>
 				</div>
 			</ButtonLink>
 
@@ -49,14 +49,8 @@
 			</div>
 		</div>
 
-		<div class="block md:hidden">
-			<Search />
-		</div>
-
 		<div class="flex flex-row items-center justify-end gap-4">
-			<div class="hidden md:block">
-				<Search />
-			</div>
+			<Search />
 			{#if session}
 				<button
 					onclick={() => (userDialogOpened = true)}
