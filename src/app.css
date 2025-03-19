@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import url('m3-svelte/misc/styles.css');
+@import 'tailwindcss';
 
 @layer base {
 	dialog {
