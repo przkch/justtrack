@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@auth/core':
-        specifier: ^0.37.4
-        version: 0.37.4
+        specifier: ^0.38.0
+        version: 0.38.0
       '@auth/drizzle-adapter':
-        specifier: ^1.7.4
-        version: 1.7.4
+        specifier: ^1.8.0
+        version: 1.8.0
       '@auth/sveltekit':
-        specifier: ^1.7.4
-        version: 1.7.4(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)
+        specifier: ^1.8.0
+        version: 1.8.0(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)
       '@vitejs/plugin-basic-ssl':
         specifier: ^1.2.0
         version: 1.2.0(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1))
@@ -91,8 +91,8 @@ packages:
   '@antfu/utils@8.1.1':
     resolution: {integrity: sha512-Mex9nXf9vR6AhcXmMrlz/HVgYYZpVGJ6YlPgwl7UnaFpnshXs6EK/oa5Gpf3CzENMjkvEx2tQtntGnb7UtSTOQ==}
 
-  '@auth/core@0.37.4':
-    resolution: {integrity: sha512-HOXJwXWXQRhbBDHlMU0K/6FT1v+wjtzdKhsNg0ZN7/gne6XPsIrjZ4daMcFnbq0Z/vsAbYBinQhhua0d77v7qw==}
+  '@auth/core@0.38.0':
+    resolution: {integrity: sha512-ClHl44x4cY3wfJmHLpW+XrYqED0fZIzbHmwbExltzroCjR5ts3DLTWzADRba8mJFYZ8JIEJDa+lXnGl0E9Bl7Q==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.2
@@ -105,11 +105,11 @@ packages:
       nodemailer:
         optional: true
 
-  '@auth/drizzle-adapter@1.7.4':
-    resolution: {integrity: sha512-OPZQakWWm5Hbx6okVMbtgI08WBliz/dCbFUXiPg9TThpp3Wh7MME/ubg4fW1oOp8P0gul6MkFvMVO733sVtd2w==}
+  '@auth/drizzle-adapter@1.8.0':
+    resolution: {integrity: sha512-cxApE0h5WcyDsgGix9hzmWmCz0qxvmMJexAOQmI6R/YXYxrZ/mKBKu0BlfgQBR6z2XvNWl4wbEGchwSenSCksQ==}
 
-  '@auth/sveltekit@1.7.4':
-    resolution: {integrity: sha512-jerujN2T6txrVGcblhWrB75sBbtub3v2U1DM9+8W3MOOSfhFdlCLEW+Uow8qAGZzsnTE2WmvcMkXeGd7r2jl5A==}
+  '@auth/sveltekit@1.8.0':
+    resolution: {integrity: sha512-qCkN84BhDGxz99DFEIp6Y2rJffkKq6a/PYTNXvhfBqNKYWAMUbmhbV52LWKXX7QtpWzWaAhj2Nc3DZTdjgj3Bw==}
     peerDependencies:
       '@simplewebauthn/browser': ^9.0.1
       '@simplewebauthn/server': ^9.0.3
@@ -1109,8 +1109,8 @@ packages:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
-  jose@5.9.6:
-    resolution: {integrity: sha512-AMlnetc9+CV9asI19zHmrgS/WYsWUwCn2R7RzlbJWD7F9eWYUTGyBmU9o6PxngtLGOiDGPRu+Uc4fhKzbpteZQ==}
+  jose@6.0.10:
+    resolution: {integrity: sha512-skIAxZqcMkOrSwjJvplIPYrlXGpxTPnro2/QWTDCxAdWQrSTV5/KqspMWmi5WAx5+ULswASJiZ0a+1B/Lxt9cw==}
 
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -1215,8 +1215,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  oauth4webapi@3.1.4:
-    resolution: {integrity: sha512-eVfN3nZNbok2s/ROifO0UAc5G8nRoLSbrcKJ09OqmucgnhXEfdIQOR4gq1eJH1rN3gV7rNw62bDEgftsgFtBEg==}
+  oauth4webapi@3.3.1:
+    resolution: {integrity: sha512-ZwX7UqYrP3Lr+Glhca3a1/nF2jqf7VVyJfhGuW5JtrfDUxt0u+IoBPzFjZ2dd7PJGkdM6CFPVVYzuDYKHv101A==}
 
   package-manager-detector@0.2.9:
     resolution: {integrity: sha512-+vYvA/Y31l8Zk8dwxHhL3JfTuHPm6tlxM2A3GeQyl7ovYnSp1+mzAxClxaOr0qO1TtPxbQxetI7v5XqKLJZk7Q==}
@@ -1509,25 +1509,25 @@ snapshots:
 
   '@antfu/utils@8.1.1': {}
 
-  '@auth/core@0.37.4':
+  '@auth/core@0.38.0':
     dependencies:
       '@panva/hkdf': 1.2.1
-      jose: 5.9.6
-      oauth4webapi: 3.1.4
+      jose: 6.0.10
+      oauth4webapi: 3.3.1
       preact: 10.24.3
       preact-render-to-string: 6.5.11(preact@10.24.3)
 
-  '@auth/drizzle-adapter@1.7.4':
+  '@auth/drizzle-adapter@1.8.0':
     dependencies:
-      '@auth/core': 0.37.4
+      '@auth/core': 0.38.0
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'
       - nodemailer
 
-  '@auth/sveltekit@1.7.4(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)':
+  '@auth/sveltekit@1.8.0(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)':
     dependencies:
-      '@auth/core': 0.37.4
+      '@auth/core': 0.38.0
       '@sveltejs/kit': 2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1)))(svelte@5.20.0)(vite@6.1.0(jiti@2.4.2)(lightningcss@1.29.1))
       set-cookie-parser: 2.7.1
       svelte: 5.20.0
@@ -2224,7 +2224,7 @@ snapshots:
 
   jiti@2.4.2: {}
 
-  jose@5.9.6: {}
+  jose@6.0.10: {}
 
   kleur@4.1.5: {}
 
@@ -2308,7 +2308,7 @@ snapshots:
 
   nanoid@3.3.8: {}
 
-  oauth4webapi@3.1.4: {}
+  oauth4webapi@3.3.1: {}
 
   package-manager-detector@0.2.9: {}
 
