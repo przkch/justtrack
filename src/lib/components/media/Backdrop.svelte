@@ -10,7 +10,7 @@
 
 {#if backdropPath}
 	<div
-		class="invisible fixed top-0 right-0 left-0 -z-[1000] flex h-screen w-screen flex-col overflow-hidden brightness-[0.3] dark:visible"
+		class="fixed top-0 right-0 left-0 -z-[1000] flex h-screen w-screen flex-col overflow-hidden brightness-[0.3]"
 	>
 		<img
 			src={`https://image.tmdb.org/t/p/original/${backdropPath}`}
