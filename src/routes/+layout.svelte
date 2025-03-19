@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 	import Footer from '$lib/components/Footer.svelte';
-	import M3Style from '$lib/components/M3Style.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 
 	let { children } = $props();
@@ -10,8 +9,6 @@
 <svelte:head>
 	<title>JustTrack</title>
 </svelte:head>
-
-<M3Style />
 
 <Navbar />
 
