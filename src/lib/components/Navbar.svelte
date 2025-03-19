@@ -6,8 +6,7 @@
 	import Favicon from '~icons/justtrack/favicon';
 
 	import { page } from '$app/state';
-	import { signIn, signOut } from '@auth/sveltekit/client';
-	import { Button, ButtonLink, Dialog } from 'm3-svelte';
+	import { ButtonLink, Dialog } from 'm3-svelte';
 
 	const session = page.data.session;
 
@@ -25,7 +24,7 @@
 	</UnorderedList>
 
 	<svelte:fragment slot="buttons">
-		<Button type="filled" on:click={() => signOut()}>Sign out</Button>
+		<ButtonLink type="filled" href="/auth/signout">Sign out</ButtonLink>
 	</svelte:fragment>
 </Dialog>
 
@@ -65,7 +64,9 @@
 					<UserAvatar />
 				</button>
 			{:else}
-				<Button type="filled" on:click={() => signIn('github')}>Sign in</Button>
+				<div class="min-w-fit">
+					<ButtonLink type="filled" href="/auth/signin">Sign in</ButtonLink>
+				</div>
 			{/if}
 		</div>
 	</div>
