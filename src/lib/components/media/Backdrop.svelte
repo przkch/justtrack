@@ -14,7 +14,7 @@
 	>
 		<img
 			src={`https://image.tmdb.org/t/p/original/${backdropPath}`}
-			class={['aspect-[2/3] h-screen max-w-screen object-cover object-center', className]}
+			class={['aspect-[2/3] h-screen w-screen object-cover object-center', className]}
 			width={1920}
 			height={540}
 			decoding="async"
