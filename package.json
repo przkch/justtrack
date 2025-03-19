@@ -23,7 +23,7 @@
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/vite": "^4.0.0",
-		"drizzle-kit": "^0.30.2",
+		"drizzle-kit": "^0.30.5",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
@@ -39,7 +39,7 @@
 		"@auth/drizzle-adapter": "^1.7.4",
 		"@auth/sveltekit": "^1.7.4",
 		"@vitejs/plugin-basic-ssl": "^1.2.0",
-		"drizzle-orm": "^0.38.4",
+		"drizzle-orm": "^0.40.1",
 		"m3-svelte": "^3.4.9",
 		"postgres": "^3.4.5"
 	},
