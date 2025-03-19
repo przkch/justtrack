@@ -42,11 +42,15 @@
 
 							<div class="flex flex-row flex-wrap gap-2">
 								<Chip type="general">
-									{new Date(season.air_date).toLocaleDateString('en', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric'
-									})}
+									{#if season.air_date}
+										{new Date(season.air_date).toLocaleDateString('en', {
+											year: 'numeric',
+											month: 'long',
+											day: 'numeric'
+										})}
+									{:else}
+										Unreleased
+									{/if}
 								</Chip>
 								<Chip type="general">
 									{Math.round(Number(season.vote_average) * 10)}% liked
