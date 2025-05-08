@@ -8,6 +8,7 @@
 
 <svelte:head>
 	<title>JustTrack</title>
+	<script src="https://rybbit.przekichane.pl/api/script.js" data-site-id="3" defer></script>
 </svelte:head>
 
 <Navbar />
