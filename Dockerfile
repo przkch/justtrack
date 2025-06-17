@@ -1,28 +1,32 @@
 FROM node:23 AS base
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . ./
-
-RUN npm run build
-
-FROM node:23-alpine
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 WORKDIR /app
 
-COPY package*.json ./
+FROM base AS prod-deps
 
-RUN npm install --omit=dev
+COPY package.json pnpm-lock.yaml /app/
 
-COPY --from=base /app/build ./build
+RUN pnpm install --prod --frozen-lockfile
+
+FROM base AS build
+
+COPY . /app/
+
+RUN pnpm install --frozen-lockfile
+RUN pnpm run build
+
+FROM base
+
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/build /app/build
 
 USER node
 ENV NODE_ENV=production
-ENV HOST=0.0.0.0
+
 ENV PORT=3000
 EXPOSE 3000
 
